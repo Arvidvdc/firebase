@@ -10,3 +10,7 @@ De naam van dit bord "Firebase" is gekozen naar de naamgeving van het lokale net
 - Blog
 - Weekmenu
 - Spelletjespagina
+
+### Opmerkingen
+- Het project in deze repository heeft een lagere prioriteit en wordt aangevuld en bijgewerkt door andere projecten vanuit de codeGorilla bootcamp.
+- Het is mogelijk dat de code in deze repository niet direct bijgewerkt wordt als afzonderlijke projecten ge-update worden. Geen nood, de code volgt snel.
