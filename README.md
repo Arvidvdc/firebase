@@ -9,3 +9,4 @@ Making a new start with this application.
 ##### januari 07 2020
 * Authentication.
 * Application messaging.
+* Resetting password.
