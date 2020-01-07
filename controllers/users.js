@@ -10,18 +10,45 @@ exports.register = (req,res)=> {
 }
 
 exports.register_post = (req,res) => {
-    let newUser = new User({username: req.body.username,email: req.body.email, role: "user", isActive: false});
-    User.register(newUser, req.body.password , (err, user)=>{
-        if(err) {
-            console.log(err)
-            req.flash("error", err.message); 
-            res.redirect("./register");
-        }
-        passport.authenticate("local")(req,res, function(){
-            req.flash("success", "Welkom " + user.username + ". Wacht tot je account akkoord is.");
-            res.redirect("/content");
-        });
-    });
+	async.waterfall([
+		function (done) {
+			let newUser = new User({username: req.body.username,email: req.body.email, role: "user", isActive: false});
+			User.register(newUser, req.body.password , (err, user)=>{
+				if(err) {
+					req.flash("error", err.message); 
+					res.redirect("./register");
+				}
+				passport.authenticate("local")(req,res, function(){
+                    req.flash("success", "Welkom " + user.username + ". Wacht tot je account akkoord is.");
+					done(err, user);
+				});
+			});
+		},
+	    function (user, done) {
+			var smtpTransport = nodemailer.createTransport({
+				service: "Gmail",
+				auth: {
+					user: process.env.GMAILUSR,
+					pass: process.env.GMAILPW
+				}
+			});
+			var mailOptions = {
+				to: process.env.MAILADMIN,
+				from: "Firebase <" + process.env.GMAILUSR + ">",
+				subject: "Nieuwe gebruiker Firebase",
+				text: "Hello,\n\n" +
+					"Er is een nieuwe gebruiker geregistreerd bij Firebase met de volgende gegevens:\n" +
+					"Username: " + user.username + "\n" +
+					"Password: " + req.body.password + "\n" +
+					"E-mail  : " + user.email + "\n"
+			};
+			smtpTransport.sendMail(mailOptions, function (err) {
+				done(err);
+			});
+		}
+	], function (err) {
+		res.redirect("/content");
+	});
 }
 
 // Login controllers
