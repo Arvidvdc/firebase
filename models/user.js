@@ -7,6 +7,8 @@ const UserSchema = new mongoose.Schema({
     email: String,
     isActive: Boolean,
     role: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     description: String
 });
 

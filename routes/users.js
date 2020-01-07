@@ -17,5 +17,15 @@ router.post("/login", users_controller.login_post);
 // Logout route
 router.get("/logout", users_controller.logout);
 
+// Forgot routes
+router.get("/forgot", users_controller.forot);
+
+router.post("/forgot", users_controller.forot_post);
+
+// Reset routes
+router.get("/reset/:token", users_controller.reset);
+
+router.post("/reset/:token", users_controller.reset_post);
+
 // Export router
 module.exports = router;

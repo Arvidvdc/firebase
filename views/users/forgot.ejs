@@ -1,0 +1,25 @@
+<%- include("../partials/header") -%>
+
+<% if(error && error.length>0) { %>
+	<p><div class="user messageError"><%= error %></div></p>
+<% } %>
+	<% if(success && success.length>0) { %>
+	<p><div class="user messageSuccess"><%= success %></div></p>
+<% } %>
+
+<div class="row">
+	<div class="col-md-12">
+		<form action="/users/forgot" method="POST">
+			<legend>Wachtwoord vergeten</legend>
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" name="email" autofocus class="form-control">
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" value="Reset Password">
+			</div>
+		</form>
+	</div>
+</div>
+
+<%- include("../partials/footer") -%>
