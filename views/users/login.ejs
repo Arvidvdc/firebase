@@ -1,0 +1,41 @@
+<%- include("../partials/header") -%>
+
+<div class="w80">
+    <h1>Login</h1>
+
+    <% if(error && error.length>0) { %>
+        <p><div class="user messageError"><%= error %></div></p>
+    <% } %>
+        <% if(success && success.length>0) { %>
+        <p><div class="user messageSuccess"><%= success %></div></p>
+    <% } %>
+
+    <form action="/users/login" method="post">
+        <div class="row form-group">
+            <div class="col">
+                <label>Inlognaam:</label>
+            </div>
+            <div class="col">
+                <input class="form-control" type="text" name="username"  placeholder="Gebruikersnaam" required>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col">
+                <label>Wachtwoord:</label>
+            </div>
+            <div class="col">
+                <input class="form-control" type="password" name="password"  placeholder="Wachtwoord" required>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col justify-content-start">
+                <a class="btn btn-light btn-sm" href="/users/register">Registreren</a>
+            </div>
+            <div class="col-auto justify-content-end">
+                <input class="btn btn-light btn-sm" type="submit" value="Inloggen">
+            </div>
+        </div>
+    </form>
+</div>
+
+<%- include("../partials/footer") -%>

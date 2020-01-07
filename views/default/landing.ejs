@@ -1,0 +1,25 @@
+<%- include("../partials/header") -%>
+
+<div class="w80">
+    <% if(error && error.length>0) { %>
+        <p><div class="user messageError"><%= error %></div></p>
+    <% } %>
+        <% if(success && success.length>0) { %>
+        <p><div class="user messageSuccess"><%= success %></div></p>
+    <% } %>
+
+    <div class="row justify-content-start">
+        <div class="col"><p>Welkom op deze server.</p></div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="col"><p>Om verder te gaan is verificatie vereist. Klik hieronder op inloggen als je reeds inloggegevens hebt, of op registreren als je toegang wenst.</p></div>
+    </div>
+    <div class="row justify-content-start blauw">
+        <div class="col-sm-1 col-md-3"></div>
+        <div class="col-sm-5 col-md-3 d-flex justify-content-end"><a href="/users/login" class="btn btn-light btn-sm">Inloggen</a></div>
+        <div class="col-sm-5 col-md-3"><a href="/users/register" class="btn btn-light btn-sm">Registreren</a></div>
+        <div class="col-sm-1 col-md-3"></div>
+    </div>
+
+</div>
+<%- include("../partials/footer") -%>

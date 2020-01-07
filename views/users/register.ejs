@@ -1,0 +1,47 @@
+<%- include("../partials/header") -%>
+
+<div class="w80">
+    <h1>Registreren</h1>
+
+    <% if(error && error.length>0) { %>
+        <p><div class="user messageError"><%= error %></div></p>
+    <% } %>
+        <% if(success && success.length>0) { %>
+        <p><div class="user messageSuccess"><%= success %></div></p>
+    <% } %>
+
+    <form action="/users/register" method="POST">
+        <div class="row form-group">
+            <div class="col">
+                <label>Gebruikersnaam</label>
+            </div>
+            <div class="col">
+                <input class="form-control" name="username" type="text" placeholder="Gewenste gebruikersnaam." required>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col">
+                <label>Wachtwoord</label>
+            </div>
+            <div class="col">
+                <input class="form-control" name="password" type="password" placeholder="Geef een wachtwoord op." required>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col">
+                <label>Email</label>
+            </div>
+            <div class="col">
+                <input class="form-control" name="email" type="email" placeholder="Geef een email op." required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-auto justify-content-end">
+                <input class="btn btn-light btn-sm" type="submit" value="Registreren">
+            </div>
+        </div>
+    </form>
+</div>
+
+<%- include("../partials/footer") -%>
