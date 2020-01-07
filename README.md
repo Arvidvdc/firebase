@@ -8,5 +8,7 @@ Making a new start with this application.
 ### Features
 ##### januari 07 2020
 * Authentication.
+* Authorization.
 * Application messaging.
 * Resetting password.
+* Mail to admin when new user registration.
