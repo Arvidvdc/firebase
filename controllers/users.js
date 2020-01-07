@@ -81,7 +81,7 @@ exports.forot_post = (req, res, next) => {
             });
             var mailOptions = {
                 to: user.email,
-                from: process.env.GMAILUSR,
+                from: "Firebase <" + process.env.GMAILUSR + ">",
                 subject: 'Wachtwoord reset.',
                 text: 'Je ontvangt dit bericht omdat er een wachtwoord wijziging aangevraagd is voor je account.\n\n' +
                     'Klik op de volgende link, of copy/paste deze link in je browser om het proces te voltooien:\n\n' +
@@ -146,7 +146,7 @@ exports.reset_post = (req, res) => {
             });
             var mailOptions = {
                 to: user.email,
-                from: process.env.GMAILUSR,
+                from: "Firebase <" + process.env.GMAILUSR + ">",
                 subject: 'Je wachtwoord is gewijzigd',
                 text: 'Hello,\n\n' +
                     'Dit is de bevestiging dat je wachtwoord voor ' + user.email + ' is gewijzigd.\n'
