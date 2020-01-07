@@ -10,6 +10,21 @@ middlewareObj.isLoggedIn = (req,res,next) => {
     };
 };
 
+middlewareObj.isActive = (req,res,next) => {
+    if(req.isAuthenticated()) {
+        let testUser= req.user.isActive;
+        if(testUser) {
+            return next();
+        } else {
+            req.flash("error", "Uw account is nog niet geactiveerd.");
+            res.redirect("/");
+        }
+    } else {
+        req.flash("error", "Hiervoor is inloggen verplicht.");
+        res.redirect("/users/login");
+    }
+}
+
 middlewareObj.isOperator = (req,res,next) => {
     if(req.isAuthenticated()) {
         let testUser= req.user.role;
