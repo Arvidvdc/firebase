@@ -10,7 +10,7 @@ exports.register = (req,res)=> {
 }
 
 exports.register_post = (req,res) => {
-    let newUser = new User({username: req.body.username,email: req.body.email, role: 'user', isActive: false});
+    let newUser = new User({username: req.body.username,email: req.body.email, role: "user", isActive: false});
     User.register(newUser, req.body.password , (err, user)=>{
         if(err) {
             console.log(err)
@@ -46,22 +46,22 @@ exports.logout = (req,res) => {
 
 // Forgot controller
 exports.forot = (req,res) => {
-    res.render('./users/forgot', {css: "landing.css"});
+    res.render("./users/forgot", {css: "landing.css"});
 }
 
 exports.forot_post = (req, res, next) => {
     async.waterfall([
         function (done) {
             crypto.randomBytes(20, function (err, buf) {
-                var token = buf.toString('hex');
+                var token = buf.toString("hex");
                 done(err, token);
             });
         },
         function (token, done) {
             User.findOne({ email: req.body.email }, function (err, user) {
                 if (!user) {
-                    req.flash('error', 'Email niet gevonden.');
-                    return res.redirect('/users/forgot');
+                    req.flash("error", "Email niet gevonden.");
+                    return res.redirect("/users/forgot");
                 }
                 user.resetPasswordToken = token;
                 user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
@@ -73,7 +73,7 @@ exports.forot_post = (req, res, next) => {
         },
         function (token, user, done) {
             var smtpTransport = nodemailer.createTransport({
-                service: 'Gmail',
+                service: "Gmail",
                 auth: {
                     user: process.env.GMAILUSR,
                     pass: process.env.GMAILPW
@@ -82,21 +82,21 @@ exports.forot_post = (req, res, next) => {
             var mailOptions = {
                 to: user.email,
                 from: "Firebase <" + process.env.GMAILUSR + ">",
-                subject: 'Wachtwoord reset.',
-                text: 'Je ontvangt dit bericht omdat er een wachtwoord wijziging aangevraagd is voor je account.\n\n' +
-                    'Klik op de volgende link, of copy/paste deze link in je browser om het proces te voltooien:\n\n' +
-                    'http://' + req.headers.host + '/users/reset/' + token + '\n\n' +
-                    'Als je niet om deze wijziging gevraagd hebt, hoef je niets te doen. Je wachtwoord zal niet veranderen.\n'
+                subject: "Wachtwoord reset.",
+                text: "Je ontvangt dit bericht omdat er een wachtwoord wijziging aangevraagd is voor je account.\n\n" +
+                    "Klik op de volgende link, of copy/paste deze link in je browser om het proces te voltooien:\n\n" +
+                    "http://" + req.headers.host + "/users/reset/" + token + "\n\n" +
+                    "Als je niet om deze wijziging gevraagd hebt, hoef je niets te doen. Je wachtwoord zal niet veranderen.\n"
             };
             smtpTransport.sendMail(mailOptions, function (err) {
-                console.log('mail sent');
-                req.flash('success', 'Een e-mail is gestuurd naar ' + user.email + ' met verdere instructies.');
-                done(err, 'done');
+                console.log("mail sent");
+                req.flash("success", "Een e-mail is gestuurd naar " + user.email + " met verdere instructies.");
+                done(err, "done");
             });
         }
     ], function (err) {
         if (err) return next(err);
-        res.redirect('/');
+        res.redirect("/");
     });
 }
 
@@ -104,10 +104,10 @@ exports.forot_post = (req, res, next) => {
 exports.reset = (req, res) => {
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
         if (!user) {
-            req.flash('error', 'Wachtwoord wijzigen is verlopen of niet geldig.');
-            return res.redirect('/users/forgot');
+            req.flash("error", "Wachtwoord wijzigen is verlopen of niet geldig.");
+            return res.redirect("/users/forgot");
         }
-        res.render('./users/reset', { token: req.params.token, css: "landing.css" });
+        res.render("./users/reset", { token: req.params.token, css: "landing.css" });
     });
 }
 
@@ -116,8 +116,8 @@ exports.reset_post = (req, res) => {
         function (done) {
             User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
                 if (!user) {
-                    req.flash('error', 'Wachtwoord wijzigen is verlopen of niet geldig.');
-                    return res.redirect('back');
+                    req.flash("error", "Wachtwoord wijzigen is verlopen of niet geldig.");
+                    return res.redirect("back");
                 }
                 if (req.body.password === req.body.confirm) {
                     user.setPassword(req.body.password, function (err) {
@@ -132,13 +132,13 @@ exports.reset_post = (req, res) => {
                     })
                 } else {
                     req.flash("error", "Wachtwoorden komen niet overeen.");
-                    return res.redirect('back');
+                    return res.redirect("back");
                 }
             });
         },
         function (user, done) {
             var smtpTransport = nodemailer.createTransport({
-                service: 'Gmail',
+                service: "Gmail",
                 auth: {
                     user: process.env.GMAILUSR,
                     pass: process.env.GMAILPW
@@ -147,16 +147,16 @@ exports.reset_post = (req, res) => {
             var mailOptions = {
                 to: user.email,
                 from: "Firebase <" + process.env.GMAILUSR + ">",
-                subject: 'Je wachtwoord is gewijzigd',
-                text: 'Hello,\n\n' +
-                    'Dit is de bevestiging dat je wachtwoord voor ' + user.email + ' is gewijzigd.\n'
+                subject: "Je wachtwoord is gewijzigd",
+                text: "Hello,\n\n" +
+                    "Dit is de bevestiging dat je wachtwoord voor " + user.email + " is gewijzigd.\n"
             };
             smtpTransport.sendMail(mailOptions, function (err) {
-                req.flash('success', 'Succes! je wachtwoord is gewijzigd.');
+                req.flash("success", "Succes! je wachtwoord is gewijzigd.");
                 done(err);
             });
         }
     ], function (err) {
-        res.redirect('/content');
+        res.redirect("/content");
     });
 }
