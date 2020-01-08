@@ -41,4 +41,17 @@ middlewareObj.isOperator = (req,res,next) => {
     }
 }
 
+middlewareObj.css = (req,res,next) => {
+    let userName=req.user.username.toUpperCase();
+    if(userName==="THIRZA") {
+        res.locals.css="thirza.css";
+    } else if(userName==="LISANNE") {
+        res.locals.css="lisanne.css";
+    } else if(userName==="SARGE") {
+        res.locals.css="sarge.css";
+    } else {
+        res.locals.css="main.css";
+    }
+    next()
+}
 module.exports = middlewareObj;

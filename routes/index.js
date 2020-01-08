@@ -7,7 +7,7 @@ const   express             = require("express"),
 router.get("/", index_controller.default);
 
 // Content route
-router.get("/content", middleware.isActive, index_controller.content);
+router.get("/content", middleware.isActive, middleware.css, index_controller.content);
 
 // Export router
 module.exports = router;

@@ -1,0 +1,9 @@
+body {
+    background-image: url(/images/HamburgerHill.jpg);
+    background-color: #a80f00;
+    color: white;
+}
+
+.jumbotron h1 {
+    color: #a80f00;
+}
