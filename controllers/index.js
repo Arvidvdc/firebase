@@ -6,5 +6,5 @@ exports.default = (req,res)=> {
 }
 
 exports.content = (req,res) => {
-    res.render("./default/content", {css: res.locals.css});
+    res.render("./default/content", {css: res.locals.css, page: "content"});
 }
