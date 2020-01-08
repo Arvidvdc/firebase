@@ -1,0 +1,55 @@
+<%- include("../partials/header") -%>
+
+<h1>Profiel</h1>
+<p>De volgende gegevens zijn van je beschikbaar:</p>
+<form action="/users/profile" method="POST">
+    <div class="row form-group">
+        <div class="col">
+            <label>Gebruikersnaam</label>
+        </div>
+        <div class="col">
+            <input class="form-control" name="update[username]" type="text" value="<%= typeof userData !== 'undefined' ?  userData.username : '' %>" required>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col">
+            <label>Email</label>
+        </div>
+        <div class="col">
+            <input class="form-control" name="update[email]" type="email" value="<%= typeof userData !== 'undefined' ?  userData.email : '' %>"  required>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col">
+            <label>Status</label>
+        </div>
+        <div class="col">
+            <input type="checkbox" name="update[isActive]" <%= typeof  userdata !== 'undefined' && userData.email.toString() == "true" ? 'checked' : '' %> disabled> Actief
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col">
+            <label>Rol</label>
+        </div>
+        <div class="col">
+            <% if(currentUser){ %>
+                <% if(currentUser.role.indexOf("admin")==-1){ %>
+                    <input class="form-control" name="update[role]" type="text" value="<%= typeof userData !== 'undefined' ?  userData.role : '' %>" disabled>
+                <% } else { %>
+                    <input class="form-control" name="update[role]" type="text" value="<%= typeof userData !== 'undefined' ?  userData.role : '' %>">
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-auto justify-content-end">
+            <input class="but but-deep-brown but-sm" type="reset" value="Herstel">
+            <input class="but but-deep-brown but-sm" type="submit" value="Bijwerken">
+        </div>
+    </div>
+</form>
+
+
+
+<%- include("../partials/footer") -%>

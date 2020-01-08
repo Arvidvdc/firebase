@@ -27,5 +27,8 @@ router.get("/reset/:token", users_controller.reset);
 
 router.post("/reset/:token", users_controller.reset_post);
 
+// Profile route
+router.get("/profile", middleware.isActive, middleware.css, users_controller.profile);
+
 // Export router
 module.exports = router;

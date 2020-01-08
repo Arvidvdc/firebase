@@ -53,7 +53,7 @@
                 </ul>
                 
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#"><%= currentUser.username %></a></li>
+                    <li class="nav-item"><a class="nav-link <%= typeof page !== 'undefined' && page === 'profile' ? 'active' : '' %>" href="/users/profile"><%= currentUser.username %></a></li>
                     <li class="nav-item"><a class="nav-link" href="/users/logout">Uitloggen</a></li>
                 </ul>
                 <% if(error && error.length>0) { %>

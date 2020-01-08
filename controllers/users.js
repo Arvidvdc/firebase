@@ -187,3 +187,14 @@ exports.reset_post = (req, res) => {
         res.redirect("/content");
     });
 }
+
+exports.profile = (req,res) => {
+    User.findById(req.user._id, (err,user)=>{
+        if(err){
+            console.log("user.findById: " + err);
+        } else {
+            res.render("./users/profile", {css: res.locals.css, page: "profile", userData: user});
+        };
+    });
+    
+}
