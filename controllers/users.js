@@ -6,7 +6,7 @@ const   passport    = require("passport"),
 
 // Register controlers
 exports.register = (req,res)=> {
-    res.render("./users/register", {css: "landing.css"});
+    res.render("./users/register", {css: "landing.css", page: ""});
 }
 
 exports.register_post = (req,res) => {
@@ -53,7 +53,7 @@ exports.register_post = (req,res) => {
 
 // Login controllers
 exports.login = (req,res) => {
-    res.render("./users/login", {css: "landing.css"});
+    res.render("./users/login", {css: "landing.css", page: ""});
 }
 
 exports.login_post =  passport.authenticate("local", {
@@ -73,7 +73,7 @@ exports.logout = (req,res) => {
 
 // Forgot controller
 exports.forot = (req,res) => {
-    res.render("./users/forgot", {css: "landing.css"});
+    res.render("./users/forgot", {css: "landing.css", page: ""});
 }
 
 exports.forot_post = (req, res, next) => {
@@ -134,7 +134,7 @@ exports.reset = (req, res) => {
             req.flash("error", "Wachtwoord wijzigen is verlopen of niet geldig.");
             return res.redirect("/users/forgot");
         }
-        res.render("./users/reset", { token: req.params.token, css: "landing.css" });
+        res.render("./users/reset", { token: req.params.token, css: "landing.css", page: "" });
     });
 }
 
@@ -193,7 +193,7 @@ exports.profile = (req,res) => {
         if(err){
             console.log("user.findById: " + err);
         } else {
-            res.render("./users/profile", {css: res.locals.css, page: "profile", userData: user});
+            res.render("./users/profile", {css: res.locals.css, page: "profile", userData: user, page: ""});
         };
     });
     
