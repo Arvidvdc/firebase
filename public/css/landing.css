@@ -3,6 +3,10 @@ body {
     color: white;
 }
 
+.buts {
+    margin-top: 15px;
+}
+
 .w80 {
     margin-top: 15px;
     width: 80%;
@@ -26,4 +30,8 @@ body {
     padding: 0 10px;
     border: 1px solid transparent;
     border-radius: .25rem;
+}
+
+.btn {
+    margin: 7px;
 }
