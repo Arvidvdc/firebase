@@ -1,6 +1,6 @@
 body {
     background-image: url("/images/HamburgerHill.jpg");
-    color: white;
+    color: #ffffff;
 }
 
 .buts {
@@ -34,4 +34,8 @@ body {
 
 .btn {
     margin: 7px;
+}
+
+.row {
+    margin: 5px 0px;
 }
